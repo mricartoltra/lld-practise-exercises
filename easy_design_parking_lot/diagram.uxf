@@ -1,0 +1,19 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>240</x><y>270</y><w>350</w><h>240</h></coordinates><panel_attributes>class ParkingLot
+--
+- vector&lt;ParkingLevel&gt; parkingLevels;
++ ParkingLot();
++ </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>240</y><w>290</w><h>150</h></coordinates><panel_attributes>class ParkingLevel
+--
+- vector&lt;ParkingSpot&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>650</x><y>450</y><w>330</w><h>170</h></coordinates><panel_attributes>class ParkingSpot
+--
+- SpotType type
++ ParkingSpot(SportType type)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>700</y><w>260</w><h>80</h></coordinates><panel_attributes>Enum SpotType
+--
+SMALL, // only fits VehicleType::MOTORBIKE
+MEDIUM, // only fits VehicleType::CAR
+LARGE // only fits VehicleType:VAN</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>600</y><w>150</w><h>80</h></coordinates><panel_attributes>Enum VehicleType
+--
+MOTORBIKE,
+CAR,
+VAN</panel_attributes><additional_attributes></additional_attributes></element></diagram>
