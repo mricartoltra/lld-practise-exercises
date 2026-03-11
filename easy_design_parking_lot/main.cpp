@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <iostream>
+#include <memory>
 
 enum class VehicleSize
 {
@@ -30,19 +32,23 @@ class Motorcycle : public Vehicle
         : Vehicle(VehicleSize::SMALL, licensePlate) {};
 };
 
-class Car : Vehicle
+class Car : public Vehicle
 {
     public:
         Car(std::string licensePlate)
         : Vehicle(VehicleSize::MEDIUM, licensePlate) {};
 };
 
-class Truck : Vehicle
+class Truck : public Vehicle
 {
     public:
         Truck(std::string licensePlate)
         : Vehicle(VehicleSize::LARGE, licensePlate) {};
 };
+
+
+
+
 
 
 
@@ -80,42 +86,119 @@ class ParkingSpot
 class Level
 {
     private:
-        int smallSpots_ = 0;
-        int mediumSpots_ = 0;
-        int largeSpots_ = 0;
+        int id = 0;
+        std::vector<std::unique_ptr<ParkingSpot>> smallSpots_;
+        std::vector<std::unique_ptr<ParkingSpot>> mediumSpots_;
+        std::vector<std::unique_ptr<ParkingSpot>> largeSpots_;
+
     public:
-        Level(int smallspots, int mediumspots, int largespots)
-        : smallSpots_{smallspots}, mediumSpots_{mediumspots}, largeSpots_{largespots}
-        {};
+        Level(int level, int smallspots, int mediumspots, int largespots) : id{level}
+        {
+            for(int i = 0; i<smallspots; i++)
+            {
+                smallSpots_.push_back(std::make_unique<ParkingSpot>(VehicleSize::SMALL, id+"_s_"+i));
+            }
+            for(int i = 0; i<mediumspots; i++)
+            {
+                mediumSpots_.push_back(std::make_unique<ParkingSpot>(VehicleSize::MEDIUM, id+"_m_"+i));
+            }
+            for(int i = 0; i<largespots; i++)
+            {
+                largeSpots_.push_back(std::make_unique<ParkingSpot>(VehicleSize::LARGE  , id+"_l_"+i));
+            }
+        };
         
 };
 
 class IParkingStrategy
 {
     public:
-        void findSpot()
+        virtual ~IParkingStrategy() {}
+        virtual ParkingSpot findSpot(const Vehicle vehicle) = 0;
 };
+
+class DefaultParkingStrategy : public IParkingStrategy
+{
+    public:
+        DefaultParkingStrategy() {}
+        ParkingSpot findSpot(const Vehicle vehicle)
+        {
+            return;
+        }
+};
+
+
 
 class IFeeStrategy
 {
+    public:
+        virtual ~IFeeStrategy() {}
+        virtual void calculateFee(const Vehicle* vehicle) = 0;
 
+};
+class FlatRateFee : public IFeeStrategy
+{
+    public:
+        FlatRateFee(){}
+        void calculateFee(const Vehicle* vehicle) override
+        {
+            //fix rate doesnt matter
+            std::cout<<"The parking ticket is 5€"<<std::endl;
+        }
+};
+class SizeSpecificFlatRateFee : public IFeeStrategy
+{
+    public:
+        SizeSpecificFlatRateFee(){}
+        void calculateFee(const Vehicle* vehicle) override
+        {
+            //fix rate doesnt matter
+            VehicleSize size = vehicle->GetSize();
+            if(size == VehicleSize::SMALL) std::cout<<"The parking ticket is 2€"<<std::endl;
+            else if(size == VehicleSize::MEDIUM) std::cout<<"The parking ticket is 5€"<<std::endl;
+            else if(size == VehicleSize::LARGE) std::cout<<"The parking ticket is 10€"<<std::endl;
+        }
 };
 
 class ParkingLotSystem
 {
     private:
-        IParkingStrategy parkingStrategy;
-        IFeeStrategy feeStrategy;
-        std::vector<Level> floors;
+        std::unique_ptr<IParkingStrategy> parkingStrategy_;
+        std::unique_ptr<IFeeStrategy> feeStrategy_;
+        
+        std::vector<std::unique_ptr<Level>> floors_;
 
     public:
-        ParkingLotSystem(){};
-        void Enter(VehicleType vehicle){};
+        ParkingLotSystem(IParkingStrategy* p, IFeeStrategy* f, int floors, int sSpots, int mSpots, int lSpots)
+        : parkingStrategy_{p}, feeStrategy_{f} 
+        {
+            for(int i = 0; i<floors; i++)
+            {
+                floors_.push_back(std::make_unique<Level>(i, sSpots, mSpots, lSpots));
+            }
+        };
+
+        void Enter(Vehicle vehicle){};
 
 };
 
 int main()
 {
-    ParkingLotSystem parking;
+    std::unique_ptr<DefaultParkingStrategy> pStrategy = std::make_unique<DefaultParkingStrategy>();
+    std::unique_ptr<FlatRateFee> fStrategy = std::make_unique<FlatRateFee>();
+    int floors = 5;
+    int small_spots = 10; // per floor
+    int medium_spots = 100;
+    int large_spots = 3;
+    std::unique_ptr<ParkingLotSystem> parking = std::make_unique<ParkingLotSystem>(pStrategy, fStrategy, floors, small_spots, medium_spots, large_spots);
 
+    Car myCar("CAR-123");
+    Motorcycle myMoto("MTO-999");
+    Truck myTruck("TRK-555");
+    
+    parking->Enter(myCar);
+    parking->Enter(myMoto);
+    parking->Enter(myTruck);
+
+    return 0;
 }
