@@ -1,22 +1,30 @@
-<diagram program="umletino" version="15.1"><zoom_level>14</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>70</x><y>154</y><w>490</w><h>336</h></coordinates><panel_attributes>class ParkingLot
+<diagram program="umletino" version="15.1"><zoom_level>12</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>120</x><y>12</y><w>420</w><h>288</h></coordinates><panel_attributes>class ParkingLot
 --
-- vector&lt;ParkingLevel&gt; parkingLevels;
+- vector&lt;ParkingLevel&gt; floors;
 + ParkingLot(int levels, );
 + void entry(vehicleType vehicle);
 + int availableSpots(ParkingLevel level, vehicleType vehicle);
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>616</x><y>112</y><w>322</w><h>210</h></coordinates><panel_attributes>class ParkingLevel
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>624</x><y>12</y><w>276</w><h>180</h></coordinates><panel_attributes>class ParkingLevel
 --
-- vector&lt;ParkingSpot&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>616</x><y>378</y><w>322</w><h>238</h></coordinates><panel_attributes>class ParkingSpot
+- vector&lt;ParkingSpot&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>228</y><w>276</w><h>204</h></coordinates><panel_attributes>class ParkingSpot
 --
 - SpotType type
+--
 + ParkingSpot(SportType type)
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>756</y><w>364</w><h>112</h></coordinates><panel_attributes>Enum SpotType
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>144</x><y>624</y><w>132</w><h>96</h></coordinates><panel_attributes>Enum VehicleSize
 --
-SMALL, // only fits VehicleType::MOTORCYCLE
-MEDIUM, // only fits VehicleType::CAR
-LARGE // only fits VehicleType::TRUCK</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>70</x><y>616</y><w>210</w><h>112</h></coordinates><panel_attributes>Enum VehicleType
+SMALL
+MEDIUM
+LARGE</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>324</x><y>600</y><w>240</w><h>180</h></coordinates><panel_attributes>class Vehicle
 --
-MOTORCYCLE,
-CAR,
-TRUCK</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+- VehicleSize size
+- std::string licenseNumber</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>612</y><w>120</w><h>36</h></coordinates><panel_attributes>Motorcycle</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>672</y><w>120</w><h>36</h></coordinates><panel_attributes>Car</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>672</x><y>732</y><w>120</w><h>36</h></coordinates><panel_attributes>Truck
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>552</x><y>600</y><w>144</w><h>60</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>100;20;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>552</x><y>660</y><w>144</w><h>48</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>100;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>552</x><y>720</y><w>144</w><h>48</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>100;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>84</x><y>372</y><w>252</w><h>84</h></coordinates><panel_attributes>class IParkingStrategy
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>348</x><y>372</y><w>252</w><h>84</h></coordinates><panel_attributes>class IFeeStrategy
+--
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
