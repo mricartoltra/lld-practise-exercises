@@ -4,7 +4,7 @@
 template <typename T>
 class MKVector {
 private:
-    T* data_;
+    T* data_; //here I store the dynamically allocated data
     size_t size_;
     size_t capacity_;
 
@@ -25,6 +25,7 @@ private:
 public:
     MKVector() : data_(nullptr), size_(0), capacity_(0) {}
 
+    //rule of 5
     ~MKVector() {
         delete[] data_; 
     }
@@ -81,6 +82,7 @@ public:
         return *this;
     }
 
+    //some useful functions
     void push_back(const T& value)
     {
         if(size_ == capacity_)
