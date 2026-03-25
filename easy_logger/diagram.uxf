@@ -1,0 +1,14 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>400</x><y>120</y><w>220</w><h>200</h></coordinates><panel_attributes>class Logger
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>230</x><y>300</y><w>100</w><h>110</h></coordinates><panel_attributes>enum LogLevel
+--
+DEBUG
+INFO
+WARNING
+ERROR
+FATAL</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>360</y><w>260</w><h>240</h></coordinates><panel_attributes>LogMessage
+--
+- LogLevel level
+- std::string message
+- LocalDateTime timestamp
+- std::string loggerName</panel_attributes><additional_attributes></additional_attributes></element></diagram>
