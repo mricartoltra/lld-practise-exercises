@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <stdexcept>
+#include <iostream>
 
 template <typename T>
 class MKVector {
@@ -124,5 +125,26 @@ public:
     {
         if(index >= size_) throw std::out_of_range("Index out of bounds");
         return data_[index];
-    }  
+    } 
+
+    using iterator = T*;
+    using const_iterator = const T*;
+
+    iterator begin() { return data_; }
+    iterator end() { return data_ + size_; }
+
+    const_iterator begin() const { return data_; }
+    const_iterator end() const { return data_ + size_; }
 };
+
+
+int main()
+{
+    MKVector<int> myVec;
+    myVec.push_back(10);
+    myVec.push_back(20);
+
+    for (int val : myVec) {
+        std::cout<<val<<std::endl;
+    }
+}
