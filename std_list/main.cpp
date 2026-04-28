@@ -26,7 +26,7 @@ public:
     //copy constructor
     myDoublyLinkedList(const myDoublyLinkedList<T>& rhs)
     {
-        Node* curr = other.head;
+        Node* curr = rhs.head;
         while (curr != nullptr) {
             push_back(curr->data);
             curr = curr->next;
